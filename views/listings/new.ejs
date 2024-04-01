@@ -1,0 +1,56 @@
+<% layout('/layouts/boilerplate') -%>
+
+<body>
+  <h3>Create a New Listing</h3>
+  <form id="listingForm" method="POST" action="/listings" novalidate>
+
+    <div class="row">
+      <div class="col-8 offset-2">
+
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input name="title" class="form-control" type="text" required>
+          <div class="invalid-feedback">Please provide a title.</div>   
+             </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea name="description" class="form-control" required></textarea>
+          <div class="invalid-feedback">Please provide a Discription</div>   
+
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Image Link</label>
+          <input name="image" class="form-control" type="text" required>
+          <div class="invalid-feedback">Please provide a image link</div>   
+
+        </div>
+
+        <div class="row">
+          <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input name="listing[price]" class="form-control" type="number" required>
+            <div class="invalid-feedback">Please provide a Price</div>   
+
+          </div>
+          <div class="mb-3 col-8">
+            <label for="country" class="form-label">Country</label>
+            <input name="listing[country]" class="form-control" type="text" required>
+            <div class="invalid-feedback">Please provide a Country</div>   
+
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input name="listing[location]" class="form-control" type="text" required>
+          <div class="invalid-feedback">Please provide a Location</div>   
+
+        </div>
+      </div>
+    </div>
+    <button id="submitButton" type="submit" class="btn btn-primary">Add</button>
+  </form>
+
+</body>
