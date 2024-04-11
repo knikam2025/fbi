@@ -39,14 +39,14 @@ app.get("/", (req, res) => {
 
 
 const validateListing = (req, res, next) => {
-  let error = listingSchema.validate(req.body).error; // Fixing syntax error here
+  const { error } = listingSchema.validate(req.body);
   if (error) {
-    let errmsg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errmsg);
-  } else {
-    next();
+    const errmsg = error.details.map((el) => el.message).join(",");
+    return next(new ExpressError(400, errmsg)); // Use next() to pass the error
   }
+  next();
 };
+
 
 
 //Index Route
@@ -56,7 +56,7 @@ app.get("/listings", wrapAsync(async (req, res) => {
 }));
 
 //New Route
-app.get("/listings/new", validateListing, wrapAsync((req, res) => {
+app.get("/listings/new", wrapAsync((req, res) => {
   res.render("listings/new.ejs");
 }));
 
@@ -84,7 +84,7 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 //Update Route
-app.put("/listings/:id", validateListing, wrapAsync(async (req, res) => {
+app.put("/listings/:id", wrapAsync(async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
   res.redirect(`/listings/${id}`);
@@ -97,7 +97,6 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
   console.log(deletedListing);
   res.redirect("/listings");
 }));
-
 
 
 
